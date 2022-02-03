@@ -1,8 +1,8 @@
 import { AuthActionsMap, TodoActionsMap } from "./actions";
 import { rootStore, Store } from "./global-store";
-import { AppState, AuthState, Todo, TodoState } from "./interfaces";
+import { AppState, AuthState, Todo, TodoState, User } from "./interfaces";
 
-abstract class Reducer {
+export abstract class Reducer {
     store: Store
     constructor(store: Store){
         this.store = store
@@ -11,7 +11,7 @@ abstract class Reducer {
 }
 
 export class AuthReducer extends Reducer {
-    state!: AuthState
+    state: AuthState
     constructor(store: Store){
         super(store);
         this.state = this.store.authState
@@ -19,21 +19,23 @@ export class AuthReducer extends Reducer {
     on(eventName: AuthActionsMap, payload: any): void {
         switch (eventName) {
             case "logUser":
-                this.store.onAuthStateAction(this.logUserAction());
+                this.store.onAuthStateAction(this.logUserAction(payload));
                 break;
             case "changeNameUser":
                 this.store.onAuthStateAction(this.changeNameUser(payload));
+                break;
             default:
                 break;
         }
     }
-    private logUserAction(): AuthState {
+    logUserAction(user: User): AuthState {
         return {
             ...this.state,
+            user: user,
             isLoggedIn: true
         }
     }
-    private changeNameUser(newName: string): AuthState{
+    changeNameUser(newName: string): AuthState{
         return {
             ...this.state,
             user: {
@@ -42,6 +44,7 @@ export class AuthReducer extends Reducer {
             }
         }
     }
+    
 }
 export class TodoReducer extends Reducer {
     state: TodoState

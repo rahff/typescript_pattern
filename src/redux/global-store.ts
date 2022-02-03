@@ -26,7 +26,7 @@ export class Store implements AppState {
     authSelector(key: KeyAuthState): Partial<AuthState> {
         return this.authState[key] as Partial<AuthState>;
     }
-    todoSelector(key: KeyTodoState): Partial<TodoState> {
+    todoFeatureSelector(key: KeyTodoState): Partial<TodoState> {
         return this.todoState[key] as Partial<TodoState>;
     }
 }
