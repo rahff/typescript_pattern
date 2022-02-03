@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./src/index.ts",
     "start:linux": "OS=Linux nodemon ./src/index.ts",
     "start:windows": "OS=Windows nodemon ./src/index.ts",
     "start:MacOs": "OS=MacOs nodemon ./src/index.ts",
