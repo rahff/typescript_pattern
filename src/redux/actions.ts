@@ -14,7 +14,6 @@ abstract class Actions {
 
 
 export class TodoAction extends Actions {
-
     dispatch(actionName: TodoActionsMap, payload: any): void {
         todoReducer.on(actionName, payload);
     };

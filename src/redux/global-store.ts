@@ -23,12 +23,6 @@ export class Store implements AppState {
     onTodoStateAction(newState: TodoState): void {
         this.todoState = newState;
     }
-    authSelector(key: KeyAuthState): Partial<AuthState> {
-        return this.authState[key] as Partial<AuthState>;
-    }
-    todoFeatureSelector(key: KeyTodoState): Partial<TodoState> {
-        return this.todoState[key] as Partial<TodoState>;
-    }
 }
 export const rootStore = new Store();
 

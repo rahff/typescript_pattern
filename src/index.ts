@@ -4,6 +4,7 @@ import { ButtonCreator, LinuxButtonCreator, WindowsButtonCreator, MacOsButtonCre
 import { rootStore } from "./redux/global-store";
 import { todoAction, authAction } from './redux/actions'
 import { Todo, User } from "./redux/interfaces";
+import { authSelector } from "./redux/selectors";
 function factory(creator: ButtonCreator) {
   
    const button = creator.createButton("Submit");
@@ -50,15 +51,15 @@ function mainRedux(){
     const todoState = rootStore.getTodoState();
     console.log("before action",authState);
     console.log("before action",todoState);
-    const newTodo: Todo = { description: 'test', status: false }
-    const user: User = { name: "tester", email: "tester@gmail.com" }
-    todoAction.asyncDispatch("fetchTodo", newTodo);
-    authAction.asyncDispatch("fetchUser", user);
+    todoAction.asyncDispatch("fetchTodo", null);
+    authAction.asyncDispatch("fetchUser", null);
     setTimeout(() => {
         console.log("after action",rootStore.authState);
         console.log("after action",rootStore.todoState);
-        const selectUser = rootStore.authSelector('user');
-        console.log("selector: ", selectUser);
+        const selectUser = authSelector.selectFeature('user');
+        const userName = authSelector.select(selectUser, "name")
+        console.log("selector user: ", selectUser);
+        console.log("selector userName: ", userName);
     }, 900);
 }
 mainRedux();
